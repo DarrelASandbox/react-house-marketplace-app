@@ -41,6 +41,8 @@ REACT_APP_APP_ID=
 
 - [Seeding mock data to the Firebase Local Emulator Suite](https://dev.to/sethburtonhall/seeding-mock-data-to-the-firebase-local-emulator-suite-with-faker-js-1596)
 
+&nbsp;
+
 ### Notes taken from User Sign In comment section:
 
 > is it save that Firebase stores user info and tokens in IndexedDB?
@@ -52,3 +54,19 @@ REACT_APP_APP_ID=
 > But the issue here would not be you're using IndexedDB it would be that you have an app that is vulnerable to XSS. In none Firebase apps the general rule would be to never trust the client, and on the back end to always 'sanitize' any user generated input. This is not as simple in a Firebase app as the majority of code your write is client side code. You could use Firebase cloud functions to watch certain collections for every time something is stored in your Firestore and then sanitize/parse user generated input before writing to the Firestore.
 
 > All that being said though, how likely is that to be a problem? In this particular app I would say very little likelihood. The reason I say that is at no point in our app do we render user generated content as html, we only use plain strings, we don't use innerHTML or dangerouslySetInnerHTML. If you were to do that then it would also be worth sanitizing client side before doing so, which could obviously be manipulated but not easily. Every little thing you do like that is going to make it harder but not impossible.
+
+&nbsp;
+
+### Notes taken from PrivateRoute Component & useAuthStatus Hook comment section:
+
+> Please , can You tell us what is "unsub fonction" exactly ?! Where does it come from ? Many Thanks
+
+> It's a cleanup function, onAuthStateChanged creates a websocket listener that watches/listens for a event in the Firestore of auth changed i.e. user log in / sign up / log out. The function returns another function which cancels/unsubscribes from that event listenter.
+
+> [You can see onAuthStateChanged function signature here.](https://firebase.google.com/docs/reference/js/auth.auth.md#authonauthstatechanged)
+
+> [And you can see the Unsubscribe interface here,](https://firebase.google.com/docs/reference/js/firestore_.unsubscribe) it basically removes the listener and that's it.
+
+> The reason you would do this is that when the component unmounts i.e. is no longer rendered by React and removed from the DOM, then React calls the function you returned from useEffect. This function should be a 'clean up' function i.e any listeners you added in your useEffect are removed when the component is not being used. This prevents asynchronous code running that may try and update the state of you component even though it is no longer being rendered, which would leave you with memory leaks in your app.
+
+> I think the method Brad used is a generic one and perhaps he didn't realize that Firebase.auth provides a cleanup. I think it is better to go with using the Firebase Unsubscribe as that removes the listener while Brad's approach does not, it simply doesn't try to update state in an unmounted component, but the listener is still running and taking up memory unnecessarily.
