@@ -1,6 +1,15 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './components/NavBar';
-import { Explore, ForgotPassword, Offers, SignIn, SignUp } from './pages';
+import {
+  Explore,
+  ForgotPassword,
+  Offers,
+  Profile,
+  SignIn,
+  SignUp,
+} from './pages';
 
 function App() {
   return (
@@ -12,10 +21,11 @@ function App() {
           <Route path='/offers' element={<Offers />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/profile' element={<SignIn />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 }
