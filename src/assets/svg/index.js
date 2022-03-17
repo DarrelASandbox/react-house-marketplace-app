@@ -14,7 +14,7 @@ import { ReactComponent as PersonIcon } from 'assets/svg/personIcon.svg';
 import { ReactComponent as PersonOutlineIcon } from 'assets/svg/personOutlineIcon.svg';
 import { ReactComponent as ShareIcon } from 'assets/svg/shareIcon.svg';
 import { ReactComponent as UploadIcon } from 'assets/svg/uploadIcon.svg';
-import { ReactComponent as VisibilityIcon } from 'assets/svg/visibilityIcon.svg';
+import VisibilityIcon from 'assets/svg/visibilityIcon.svg';
 
 export {
   BadgeIcon,
