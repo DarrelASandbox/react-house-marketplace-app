@@ -11,6 +11,7 @@
 9. Enable storage
 10. Add [rules](https://gist.github.com/bradtraversy/6d7de7e877d169a6aa4e61140d25767f) for storage
 11. Create 3 composite indexes for advanced querying
+12. Read the notes in populate.mjs
 
 #### First
 

@@ -1,3 +1,11 @@
+/*
+Using Firebase Web Version 9
+Need firebase cli
+Move populate.mjs & listings.json into root directory.
+.firebaserc & firebase.json needs to be in root directory as well unless using firebase init command.
+Quick fix for permission issue when writing to db is to change the Firestore Database rules.
+*/
+
 import dotenv from 'dotenv';
 import {
   onAuthStateChanged,
