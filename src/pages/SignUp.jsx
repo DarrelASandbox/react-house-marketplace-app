@@ -1,4 +1,5 @@
 import { KeyboardArrowRightIcon, VisibilityIcon } from 'assets/svg';
+import OAuth from 'components/OAuth';
 import db from 'firebase.config';
 import {
   createUserWithEmailAndPassword,
@@ -109,13 +110,13 @@ const SignUp = () => {
               <KeyboardArrowRightIcon fill='#fff' width='34px' height='34px' />
             </button>
           </div>
-
-          {/* @TODO: Google OAuth */}
-
-          <Link to='/sign-in' className='registerLink'>
-            Sign In Instead
-          </Link>
         </form>
+
+        <OAuth />
+
+        <Link to='/sign-in' className='registerLink'>
+          Sign In Instead
+        </Link>
       </div>
     </>
   );

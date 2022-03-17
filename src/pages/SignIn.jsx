@@ -1,4 +1,5 @@
 import { KeyboardArrowRightIcon, VisibilityIcon } from 'assets/svg';
+import OAuth from 'components/OAuth';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -82,13 +83,13 @@ const SignIn = () => {
               <KeyboardArrowRightIcon fill='#fff' width='34px' height='34px' />
             </button>
           </div>
-
-          {/* @TODO: Google OAuth */}
-
-          <Link to='/sign-up' className='registerLink'>
-            Sign Up Instead
-          </Link>
         </form>
+
+        <OAuth />
+
+        <Link to='/sign-up' className='registerLink'>
+          Sign Up Instead
+        </Link>
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import { ReactComponent as CheckIcon } from 'assets/svg/checkIcon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/svg/deleteIcon.svg';
 import { ReactComponent as EditIcon } from 'assets/svg/editIcon.svg';
 import { ReactComponent as ExploreIcon } from 'assets/svg/exploreIcon.svg';
-import { ReactComponent as GoogleIcon } from 'assets/svg/googleIcon.svg';
+import GoogleIcon from 'assets/svg/googleIcon.svg';
 import { ReactComponent as HomeIcon } from 'assets/svg/homeIcon.svg';
 import { ReactComponent as KeyboardArrowRightIcon } from 'assets/svg/keyboardArrowRightIcon.svg';
 import { ReactComponent as LocalOfferIcon } from 'assets/svg/localOfferIcon.svg';
