@@ -12,10 +12,10 @@ const SignIn = () => {
   const { email, password } = formData;
 
   const onChange = (e) => {
-    setFormData(() => ({
+    setFormData({
       ...formData,
       [e.target.id]: e.target.value,
-    }));
+    });
   };
 
   return (
