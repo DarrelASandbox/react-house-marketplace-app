@@ -14,7 +14,7 @@ import {
 } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { readFile } from 'fs/promises';
-import { auth, db } from './firebase.config.mjs';
+import { auth, db } from './firebase-populate.config.mjs';
 
 dotenv.config();
 

@@ -24,18 +24,15 @@ npm install
 touch .env
 ```
 
-3. Copy and paste your firebase config and user information into the .env file
+1. Copy and paste your firebase config into the .env file
 
 ```env
-FIREBASE_API_KEY=
-AUTH_DOMAIN=
-PROJECT_ID=
-STORAGE_BUCKET=
-MESSAGEING_SENDER_ID=
-APP_ID=
-
-USER_EMAIL=
-USER_PASSWORD=
+REACT_APP_FIREBASE_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGEING_SENDER_ID=
+REACT_APP_APP_ID=
 ```
 
 &nbsp;
