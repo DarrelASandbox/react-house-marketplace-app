@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import db from 'firebase.config';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +29,8 @@ const SignUp = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // https://firebase.google.com/docs/auth/web/password-auth
     try {
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(
@@ -39,6 +42,13 @@ const SignUp = () => {
       updateProfile(auth.currentUser, {
         displayName: name,
       });
+
+      // https://firebase.google.com/docs/firestore/manage-data/add-data
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, 'users', user.uid), formDataCopy);
 
       navigate('/');
     } catch (error) {
