@@ -1,11 +1,14 @@
+import dotenv from 'dotenv';
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { auth, db } from 'firebase/firebase.config.js';
 import { addDoc, collection } from 'firebase/firestore';
 import { readFile } from 'fs/promises';
+import { auth, db } from './firebase.config.mjs';
+
+dotenv.config();
 
 const { listings } = JSON.parse(
   await readFile(new URL('./listings.json', import.meta.url))

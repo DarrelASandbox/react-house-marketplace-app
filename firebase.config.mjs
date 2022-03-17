@@ -1,9 +1,14 @@
+import dotenv from 'dotenv';
 // Import the functions you need from the SDKs you need
-import firebase, { initializeApp } from 'firebase/app';
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import { getFirestore } from 'firebase/firestore';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+
+dotenv.config();
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,7 +27,7 @@ if (!firebase.apps.length) {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = firebase.auth();
-export const db = getFirestore();
+const db = getFirestore();
 
 if (process.env.NODE_ENV === 'development') {
   console.log('testing locally -- hitting local auth and firestore emulators');
@@ -31,3 +36,5 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 console.log(app.name ? 'Firebase Mode Activated!' : 'Firebase not working :(');
+
+export { auth, db };
