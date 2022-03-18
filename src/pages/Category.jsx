@@ -11,9 +11,10 @@ import {
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ListingItem from 'components/ListingItem';
 
 const Category = () => {
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const params = useParams();
@@ -47,6 +48,23 @@ const Category = () => {
     fetchListings();
   }, [params.categoryName]);
 
+  const displayList =
+    !loading && listings.length === 0 ? (
+      <p>No listings.</p>
+    ) : (
+      <main>
+        <ul className='categoryListings'>
+          {listings.map((listing) => (
+            <ListingItem
+              listing={listing.data}
+              id={listing.id}
+              key={listing.id}
+            />
+          ))}
+        </ul>
+      </main>
+    );
+
   return (
     <div className='category'>
       <header>
@@ -57,21 +75,7 @@ const Category = () => {
         </p>
       </header>
 
-      {loading ? (
-        <Spinner />
-      ) : listings && listings.length > 0 ? (
-        <>
-          <main>
-            <ul className='categoryListings'>
-              {listings.map((listing) => (
-                <h3 key={listing.id}>{listing.data.name}</h3>
-              ))}
-            </ul>
-          </main>
-        </>
-      ) : (
-        <p>No listings for {params.categoryName}</p>
-      )}
+      {loading ? <Spinner /> : displayList}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { ReactComponent as BadgeIcon } from 'assets/svg/badgeIcon.svg';
-import { ReactComponent as BathtubIcon } from 'assets/svg/bathtubIcon.svg';
-import { ReactComponent as BedIcon } from 'assets/svg/bedIcon.svg';
+import BathtubIcon from 'assets/svg/bathtubIcon.svg';
+import BedIcon from 'assets/svg/bedIcon.svg';
 import { ReactComponent as CheckIcon } from 'assets/svg/checkIcon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/svg/deleteIcon.svg';
 import { ReactComponent as EditIcon } from 'assets/svg/editIcon.svg';
