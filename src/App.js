@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './components/NavBar';
 import {
   Category,
+  CreateListing,
   Explore,
   ForgotPassword,
   Offers,
@@ -33,6 +34,7 @@ function App() {
             }
           />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/create-listing' element={<CreateListing />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
