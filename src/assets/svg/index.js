@@ -12,7 +12,7 @@ import { ReactComponent as LocalOfferIcon } from 'assets/svg/localOfferIcon.svg'
 import { ReactComponent as LockIcon } from 'assets/svg/lockIcon.svg';
 import { ReactComponent as PersonIcon } from 'assets/svg/personIcon.svg';
 import { ReactComponent as PersonOutlineIcon } from 'assets/svg/personOutlineIcon.svg';
-import { ReactComponent as ShareIcon } from 'assets/svg/shareIcon.svg';
+import ShareIcon from 'assets/svg/shareIcon.svg';
 import { ReactComponent as UploadIcon } from 'assets/svg/uploadIcon.svg';
 import VisibilityIcon from 'assets/svg/visibilityIcon.svg';
 

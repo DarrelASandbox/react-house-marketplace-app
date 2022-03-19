@@ -57,7 +57,10 @@ const CreateListing = () => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) setLoggedIn(true);
+      if (user) {
+        setLoggedIn(true);
+        setFormData({ ...initialFormState, userRef: user.uid });
+      }
       setCheckingStatus(false);
     });
     return unsub;

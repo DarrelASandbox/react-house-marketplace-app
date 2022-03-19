@@ -6,6 +6,7 @@ import Offers from './Offers';
 import Profile from './Profile';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Listing from './Listing';
 
 export {
   Explore,
@@ -16,4 +17,5 @@ export {
   SignUp,
   Category,
   CreateListing,
+  Listing,
 };

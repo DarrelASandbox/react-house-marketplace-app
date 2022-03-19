@@ -12,6 +12,7 @@ import {
   Profile,
   SignIn,
   SignUp,
+  Listing,
 } from './pages';
 
 function App() {
@@ -41,6 +42,10 @@ function App() {
                 <CreateListing />
               </PrivateRoute>
             }
+          />
+          <Route
+            path='/category/:categoryName/:listingId'
+            element={<Listing />}
           />
         </Routes>
       </BrowserRouter>
