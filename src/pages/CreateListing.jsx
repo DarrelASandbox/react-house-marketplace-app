@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 
 const CreateListing = () => {
@@ -51,10 +52,50 @@ const CreateListing = () => {
     return unsub;
   }, [auth, navigate]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log('why');
-    console.log(formData);
+
+    setLoading(true);
+
+    if (discountedPrice >= regularPrice) {
+      setLoading(false);
+      toast.error('Discounted price needs to be less than regular price.');
+      return;
+    }
+
+    if (images.length > 6) {
+      setLoading(false);
+      toast.error('Max of 6 images.');
+      return;
+    }
+
+    let geolocation = {};
+    let location;
+
+    if (geolocationEnabled) {
+      const addressFiltered = address
+        .toLowerCase()
+        .replace(/[^a-z0-9-\s]/g, '');
+
+      try {
+        const response = await fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressFiltered}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
+        );
+
+        const data = await response.json();
+        geolocation.lng = data.features[0]?.center[0] ?? 0;
+        geolocation.lat = data.features[0]?.center[1] ?? 0;
+        location = data.features[0].place_name;
+      } catch (error) {
+        console.log(error);
+        toast.error("Location doesn't exist.");
+      }
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+      location = address;
+    }
+    setLoading(false);
   };
 
   const onMutate = (e) => {
