@@ -1,5 +1,5 @@
 import db from 'firebase.config';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import {
   getDownloadURL,
@@ -7,13 +7,15 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import Spinner from '../components/Spinner';
 
 const CreateListing = () => {
+  const navigate = useNavigate();
+  const auth = getAuth();
   const initialFormState = {
     type: 'rent',
     name: '',
@@ -28,10 +30,9 @@ const CreateListing = () => {
     images: {},
     latitude: 0,
     longitude: 0,
+    userRef: auth.currentUser.uid,
   };
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [checkingStatus, setCheckingStatus] = useState(true);
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
@@ -51,20 +52,6 @@ const CreateListing = () => {
     latitude,
     longitude,
   } = formData;
-
-  const auth = getAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoggedIn(true);
-        setFormData({ ...initialFormState, userRef: user.uid });
-      }
-      setCheckingStatus(false);
-    });
-    return unsub;
-  }, [auth, navigate]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
