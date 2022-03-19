@@ -13,6 +13,7 @@ import {
   SignIn,
   SignUp,
   Listing,
+  Contact,
 } from './pages';
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
             path='/category/:categoryName/:listingId'
             element={<Listing />}
           />
+          <Route path='/contact/:landlordId' element={<Contact />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
