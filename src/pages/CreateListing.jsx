@@ -28,6 +28,8 @@ const CreateListing = () => {
     longitude: 0,
   };
 
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
@@ -53,8 +55,8 @@ const CreateListing = () => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) setFormData({ ...initialFormState, userRef: user.uid });
-      else navigate('/sign-in');
+      if (user) setLoggedIn(true);
+      setCheckingStatus(false);
     });
     return unsub;
   }, [auth, navigate]);
