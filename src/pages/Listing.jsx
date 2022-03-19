@@ -4,9 +4,12 @@ import db from 'firebase.config';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import formatMoney from 'utils/formatMoney';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { A11y, Navigation, Pagination, Scrollbar } from 'swiper';
+import 'swiper/css/bundle';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import formatMoney from 'utils/formatMoney';
 
 const Listing = () => {
   const [listing, setListing] = useState([]);
@@ -35,7 +38,26 @@ const Listing = () => {
 
   return (
     <main>
-      {/* @TODO: Slider */}
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        navigation
+        style={{ height: '420px' }}
+      >
+        {listing.imageUrls.map((url, index) => (
+          <SwiperSlide key={index}>
+            <div
+              style={{
+                background: `url(${listing.imageUrls[index]}) center no-repeat`,
+                backgroundSize: 'cover',
+              }}
+              className='swiperSlideDiv'
+            ></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
       <div
         className='shareIconDiv'
         onClick={() => {
