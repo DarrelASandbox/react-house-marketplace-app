@@ -1,21 +1,22 @@
 import { HomeIcon } from 'assets/svg';
 import KeyboardArrowRightIcon from 'assets/svg/keyboardArrowRightIcon.svg';
+import ListingItem from 'components/ListingItem';
 import db from 'firebase.config';
 import { getAuth, updateEmail, updateProfile } from 'firebase/auth';
 import {
-  updateDoc,
-  doc,
   collection,
-  getDocs,
-  query,
-  where,
-  orderBy,
   deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ListingItem from 'components/ListingItem';
 
 const Profile = () => {
   const auth = getAuth();
@@ -84,13 +85,36 @@ const Profile = () => {
   };
 
   const onDelete = async (listingId) => {
-    if (window.confirm('Are you sure you want ot delete?'))
+    if (window.confirm('Are you sure you want to delete?')) {
+      const storage = getStorage();
+      const imagesToDelete = listings.filter(
+        (listing) => listing.id === listingId
+      );
+
+      const imagesArray = imagesToDelete[0].data.imageUrls;
+
+      await imagesArray.forEach((urlToDelete) => {
+        //Get the filename from the upload URL
+        let fileName = urlToDelete.split('/').pop().split('#')[0].split('?')[0];
+        fileName = fileName.replace('%2F', '/'); // Replace "%2F" in the URL with "/"
+
+        const imageToDeleteRef = ref(storage, `${fileName}`);
+
+        deleteObject(imageToDeleteRef)
+          .then(() => toast.success('Images deleted'))
+          .catch((error) => {
+            console.log(error);
+            toast.error('Failed to delete images');
+          });
+      });
+
       await deleteDoc(doc(db, 'listings', listingId));
-    const updatedListings = listings.filter(
-      (listing) => listing.id !== listingId
-    );
-    setListings(updatedListings);
-    toast.success('Successfully deleted listing');
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      );
+      setListings(updatedListings);
+      toast.success('Sucesfully deleted offer');
+    }
   };
 
   const onEdit = () => {};
