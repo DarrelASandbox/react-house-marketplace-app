@@ -31,7 +31,7 @@ const CreateListing = () => {
     latitude: 0,
     longitude: 0,
     userRef: auth.currentUser.uid,
-    geolocationEnabled: false,
+    geolocationEnabled: true,
   };
 
   const [loading, setLoading] = useState(false);
@@ -320,7 +320,7 @@ const CreateListing = () => {
             required
           />
 
-          {geolocationEnabled && (
+          {!geolocationEnabled && (
             <div className='formLatLng flex'>
               <div>
                 <label className='formLabel'>Latitude</label>
