@@ -7,14 +7,16 @@ import {
   limit,
   orderBy,
   query,
+  startAfter,
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const Offers = () => {
-  const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState([]);
+  const [lastFetchedListing, setLastFetchedListing] = useState([]);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -28,6 +30,10 @@ const Offers = () => {
         );
 
         const querySnap = await getDocs(q);
+
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchedListing(lastVisible);
+
         const listings = [];
         querySnap.forEach((doc) =>
           listings.push({
@@ -44,6 +50,38 @@ const Offers = () => {
     };
     fetchListings();
   }, []);
+
+  // Pagination / Load More
+  const onFetchMoreListings = async () => {
+    try {
+      const listingRef = collection(db, 'listings');
+      const q = query(
+        listingRef,
+        where('offer', '==', true),
+        orderBy('timestamp', 'desc'),
+        startAfter(lastFetchedListing),
+        limit(10)
+      );
+
+      const querySnap = await getDocs(q);
+
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetchedListing(lastVisible);
+
+      const listings = [];
+      querySnap.forEach((doc) =>
+        listings.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      );
+
+      setListings((prevState) => [...prevState, ...listings]);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Could not fetch listings.');
+    }
+  };
 
   const displayList =
     !loading && listings.length === 0 ? (
@@ -62,6 +100,18 @@ const Offers = () => {
       </main>
     );
 
+  const loadMore = (
+    <>
+      <br />
+      <br />
+      {lastFetchedListing && (
+        <p className='loadMore' onClick={onFetchMoreListings}>
+          Load More
+        </p>
+      )}
+    </>
+  );
+
   return (
     <div className='category'>
       <header>
@@ -69,6 +119,7 @@ const Offers = () => {
       </header>
 
       {loading ? <Spinner /> : displayList}
+      {loadMore}
     </div>
   );
 };
