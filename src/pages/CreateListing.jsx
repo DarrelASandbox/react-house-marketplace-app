@@ -51,6 +51,7 @@ const CreateListing = () => {
     images,
     latitude,
     longitude,
+    geolocationEnabled,
   } = formData;
 
   const onSubmit = async (e) => {
@@ -73,7 +74,7 @@ const CreateListing = () => {
     let geolocation = {};
     let location;
 
-    if (initialFormState.geolocationEnabled) {
+    if (geolocationEnabled) {
       const addressFiltered = address
         .toLowerCase()
         .replace(/[^a-z0-9-\s]/g, '');
@@ -319,7 +320,7 @@ const CreateListing = () => {
             required
           />
 
-          {!initialFormState.geolocationEnabled && (
+          {geolocationEnabled && (
             <div className='formLatLng flex'>
               <div>
                 <label className='formLabel'>Latitude</label>
