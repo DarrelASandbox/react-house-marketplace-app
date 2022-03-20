@@ -117,7 +117,7 @@ const Profile = () => {
     }
   };
 
-  const onEdit = () => {};
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   return (
     <>

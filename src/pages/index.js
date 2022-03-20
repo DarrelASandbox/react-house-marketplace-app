@@ -1,6 +1,7 @@
 import Category from './Category';
 import Contact from './Contact';
 import CreateListing from './CreateListing';
+import EditListing from './EditListing';
 import Explore from './Explore';
 import ForgotPassword from './ForgotPassword';
 import Listing from './Listing';
@@ -20,4 +21,5 @@ export {
   CreateListing,
   Listing,
   Contact,
+  EditListing,
 };

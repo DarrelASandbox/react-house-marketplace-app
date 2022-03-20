@@ -5,15 +5,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './components/NavBar';
 import {
   Category,
+  Contact,
   CreateListing,
+  EditListing,
   Explore,
   ForgotPassword,
+  Listing,
   Offers,
   Profile,
   SignIn,
   SignUp,
-  Listing,
-  Contact,
 } from './pages';
 
 function App() {
@@ -41,6 +42,14 @@ function App() {
             element={
               <PrivateRoute>
                 <CreateListing />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/edit-listing/:listingId'
+            element={
+              <PrivateRoute>
+                <EditListing />
               </PrivateRoute>
             }
           />
