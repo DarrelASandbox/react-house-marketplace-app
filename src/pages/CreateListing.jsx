@@ -31,9 +31,9 @@ const CreateListing = () => {
     latitude: 0,
     longitude: 0,
     userRef: auth.currentUser.uid,
+    geolocationEnabled: false,
   };
 
-  const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
 
@@ -73,7 +73,7 @@ const CreateListing = () => {
     let geolocation = {};
     let location;
 
-    if (geolocationEnabled) {
+    if (initialFormState.geolocationEnabled) {
       const addressFiltered = address
         .toLowerCase()
         .replace(/[^a-z0-9-\s]/g, '');
@@ -319,7 +319,7 @@ const CreateListing = () => {
             required
           />
 
-          {!geolocationEnabled && (
+          {!initialFormState.geolocationEnabled && (
             <div className='formLatLng flex'>
               <div>
                 <label className='formLabel'>Latitude</label>
