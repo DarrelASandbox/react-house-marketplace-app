@@ -60,11 +60,9 @@ const Slider = () => {
             >
               <p className='swiperSlideText'>{data.name}</p>
               <p className='swiperSlidePrice'>
-                {console.log(
-                  typeof data.discountedPrice ?? typeof data.regularPrice
-                )}
-                {console.log(data.discountedPrice ?? data.regularPrice)}
-                {data.discountedPrice ?? data.regularPrice}{' '}
+                {data.discountedPrice
+                  ? formatMoney(data.discountedPrice)
+                  : formatMoney(data.regularPrice)}{' '}
                 {data.type === 'rent' && '/ month'}
               </p>
             </div>
